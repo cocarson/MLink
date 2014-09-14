@@ -1,0 +1,206 @@
+
+body {
+	background-color: #edf3f8 !important;
+	height: 100% !important;
+}
+
+h1 {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 400 !important;
+	color: #5a5a5a !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: 3em !important;
+}
+
+h2 {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 400 !important;
+	color: #333333 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: 1.5em !important;
+}
+
+h3 {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 700 !important;
+	color: #5a5a5a !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+p {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 400 !important;
+	color: #999999 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: 1em !important;	
+}
+
+a {
+	font-family: 'Lato', sans-serif !important;
+}
+
+input[type="text"] {
+	font-family: 'Lato', sans-serif !important;
+	font-size: 1.125em !important;
+	height: auto !important;
+	padding-top: .5em !important;
+	padding-bottom: .5em !important;
+}
+
+input[type="password"] {
+	font-family: 'Lato', sans-serif !important;
+	font-size: 1.125em !important;
+	height: auto !important;
+	padding-top: .5em !important;
+	padding-bottom: .5em !important;
+}
+
+label {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 700 !important;
+	color: #5a5a5a !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: .9em !important;	
+}
+
+select {
+	font-family: 'Lato', sans-serif !important;
+	font-size: 1.125em !important;
+	height: auto !important;
+	padding-top: .5em !important;	
+	padding-bottom: .5em !important;	
+}
+
+.book {
+	background-color: white !important;
+	margin: 30px 0 !important;
+	padding: 30px;
+}
+
+.text-centered {
+	text-align: center !important;
+}	
+
+.text-left {
+	text-align: left !important;
+}
+.text-right {
+	text-align: right !important;
+}
+
+.button {
+	background-color: #E0797B !important
+}
+.button:hover {
+	background-color: #cd6668 !important;
+}
+
+.light-background {
+	background-color: #edf3f8;
+}
+
+.small-margin {
+	margin: 1.5em 0em !important;
+}
+
+.large-margin {
+	margin: 4.5em 0em !important;
+}
+
+.small-radius {
+	border-radius: 4px !important;
+}
+
+.medium-radius {
+	border-radius: 7px;
+}
+
+.large-radius {
+	border-radius: 10px;
+}
+
+.light-text {
+	color: white !important;
+}
+
+.big {
+	font-size: 4rem !important;
+}
+
+#main-container {
+	padding: 3em;
+	margin-top: 3em;
+}
+
+/*********************************************************/
+
+header {
+	height: 650px !important;
+	background-size: cover !important;
+	background: #234262 url('../img/banner-shapes.png')
+}
+
+header p {
+	font-weight: 300 !important;
+	font-size: 1.125em !important;
+}
+
+nav {
+	padding: 15px 0 !important;
+}
+
+section p {
+	line-height: 1.8 !important;
+	font-weight: 300 !important;
+}
+
+footer {
+	background-color: #234263;
+}
+
+#logo {
+	height: 40px !important;
+}
+
+#login {
+	color: white;
+	margin: 15px 30px;
+}
+
+#login:hover {
+	color: #ededed;
+}
+
+#signup {
+	border: 1px solid #E0797B !important;
+	color: white !important;
+	background-color: #234363 !important;
+	border-radius: 1000px !important;
+	padding-top: .7rem;
+	padding-right: 1.5rem;
+	padding-bottom: .8rem;
+	padding-left: 1.5rem;
+}
+
+#signup:hover {
+	color: white !important;
+	background-color: #E0797B !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
