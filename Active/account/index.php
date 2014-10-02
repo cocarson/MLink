@@ -44,7 +44,7 @@
 		var currentUser = Parse.User.current();
 
 		if (currentUser) {
-			document.write('<a id="signout" href="#">Sign Out</a>');
+			document.write('<a id="signout" href="#">' + currentUser.get('firstName') + ' ' + currentUser.get('lastName') + '</a>');
 		}
 
 		</script>
@@ -53,11 +53,110 @@
 
 </nav>	
 
+<section class="row">
+	
+	<div class="large-8 large-centered columns">
+
+		<h1>Buying</h1>
+
+		<div id="buying">
+			
+
+
+		</div>
+
+		<h1>Selling</h1>
+
+		<div id="selling">
+			
+
+		</div>
+
+	</div>
+
+</section>
 
 
 <script src="../js/vendor/jquery.js"></script>
 <script type="text/javascript" src="../js/vendor/fastclick.js"></script>
 <script type="text/javascript" src="../js/foundation.min.js"></script>
+
+<script type="text/javascript">
+
+function fillBuyDiv(item, callback) {
+
+	var div = '<div class="row book medium-radius">';
+	div += '<div class="large-8 columns">';
+
+	if (item.get('textbook')) {
+		var bookId = item.get('textbook').id;
+		console.log('id: ' + bookId);
+		var Textbook = Parse.Object.extend('Textbook');
+		var query = new Parse.Query(Textbook);
+		query.equalTo('objectId', bookId);
+		query.first({
+			success: function(object) {
+				console.log(object);
+
+				div += '<h3>' + object.get('class') + ': ' + object.get('name') + '</h3>';
+				div += '<p>Edition: ' + object.get('edition') + '</p>';
+				div += '<p>Less than: ' + item.get('maxPay') + '</p>';
+				div += '</div>';
+				div += '<div class="large-3 columns text-centered">';
+				div += '<ul class="large-block-grid-1>"';
+				div += '<li><a id="remove-book" item="' + item.id + '" book="' + object.id +' style="margin-bottom:0 !important;" class="button small small-radius">Remove</a></li>';
+				div += '</ul>';
+				div +='</div>';
+				div +='</div>';
+
+				return callback(null, div);
+			}, 
+			error: function(object, error) {
+				callback(err);
+			}
+		});
+	} 
+
+}
+	
+$(document).ready(function() {
+	Parse.initialize("AQ2Vfb0vhbBq3N6t2Aeu4fpLaZ5Xp8HI42P1fOxr", "0c6WqkXpLdtzqIlYePDnxgC0ZNMsVrD9VPshu5Mo");
+
+	user = Parse.User.current();
+
+	var ItemBuy = Parse.Object.extend("ItemBuy");
+	var Textbook = Parse.Object.extend("Textbook");
+
+	var innerquery = new Parse.Query(Textbook);
+
+	var query = new Parse.Query(ItemBuy);
+
+	query.containedIn('objectId', user.get('Buying'));
+
+	query.find({
+		success: function(results) {
+			console.log("Successfully retrieved " + results.length + " scores.");
+
+			for (var i = 0; i < results.length; i++) { 
+				var object = results[i];
+				fillBuyDiv(object, function(err, div) {
+					if (!err) {
+						console.log(div);
+						$('#buying').append(div);
+					} else {
+						console.error(err);
+					}
+				})
+			}
+		},
+		error: function(error) {
+			console.log("Error: " + error.code + " " + error.message);
+		}
+	});
+
+});
+
+</script>
 
 <script>
 

@@ -1,57 +1,11 @@
+<?php
+$root = $_SERVER['DOCUMENT_ROOT'];
+$head = $root . '/inc/head.php';
+$nav = $root . '/inc/nav.php';
+include_once($head);
+include_once($nav);
+?>
 
-
-<!DOCTYPE html>
-
-<html lang="en-US">
-
-<head>
-
-	<title>MLink</title>
-
-	<meta charset="UTF-8">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-	<link rel="stylesheet" type="text/css" href="../css/main.css">
-	<link rel="stylesheet" type="text/css" href="../css/foundation.css">
-	<link rel="stylesheet" type="text/css" href="../css/normalize.css">
-
-	<script type="text/javascript" src="../js/vendor/modernizr.js"></script>
-
-	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-
-	<script src="//www.parsecdn.com/js/parse-1.2.19.min.js"></script>
-
-
-</head>
-
-<body>
-
-<nav class="row">
-
-	<div class="large-10 columns">
-
-		<a href="#"><img src="../img/logo-dark.png" style="height: 40px !important; margin-top: 10px;"></a>
-
-	</div>
-
-	<div class="large-2 columns text-centered" style="padding: 15px 0 !important">
-
-
-		<script type="text/javascript">
-		Parse.initialize("AQ2Vfb0vhbBq3N6t2Aeu4fpLaZ5Xp8HI42P1fOxr", "0c6WqkXpLdtzqIlYePDnxgC0ZNMsVrD9VPshu5Mo");
-
-		var currentUser = Parse.User.current();
-
-		if (currentUser) {
-			document.write('<a id="signout" href="#">Sign Out</a>');
-		}
-
-		</script>
-
-	</div>
-
-</nav>	
 
 <div class="row">
 
@@ -152,13 +106,11 @@
 <script src="../js/vendor/jquery.js"></script>
 <script type="text/javascript" src="../js/vendor/fastclick.js"></script>
 <script type="text/javascript" src="../js/foundation.min.js"></script>
-
+<script type="text/javascript" src="/js/init_parse.js"></script>
 
 <script type="text/javascript">
 
 function addUser (fn, ln, em, ps, ph) {
-
-	Parse.initialize("AQ2Vfb0vhbBq3N6t2Aeu4fpLaZ5Xp8HI42P1fOxr", "0c6WqkXpLdtzqIlYePDnxgC0ZNMsVrD9VPshu5Mo");
 
 	var User = Parse.Object.extend("User");
 	var user = new User();
@@ -166,7 +118,7 @@ function addUser (fn, ln, em, ps, ph) {
 	user.set("firstName", fn);
 	user.set("lastName", ln);
 	user.set("password", ps);
-	user.set("phoneNumber", ph);
+	user.set("phone", parseInt(ph));
 	user.set("email", em);
 	user.set("username", em);
 
@@ -211,18 +163,7 @@ $(document).ready(function() {
 
 <script>
 
-  	$(document).foundation({
-		// specify the class used for active sections
-		active_class: 'active',
-		// how many pixels until the magellan bar sticks, 0 = auto
-		threshold: 0,
-		// pixels from the top of destination for it to be considered active
-		destination_threshold: 0,
-		// calculation throttling to increase framerate
-		throttle_delay: 50,
-		// top distance in pixels assigned to the fixed element on scroll
-		fixed_top: 0
-	});
+  	$(document).foundation();
 </script>
 
 </body>
