@@ -1,42 +1,10 @@
-
 <?php
-
-include '../../../api.php';
-
-$data = 0;
-
-$url = 'https://api-gw.it.umich.edu/Curriculum/SOC/v1/Terms/2010/Schools';
-$class = new UMapis;
-$json = $class->call_api($url);
-$data = json_decode($json);
-
+$root = $_SERVER['DOCUMENT_ROOT'];
+$head = $root . '/inc/head.php';
+$nav = $root . '/inc/nav.php';
+include_once($head);
+include_once($nav);
 ?>
-
-<!DOCTYPE html>
-
-<html lang="en-US">
-
-<head>
-
-	<title>MLink</title>
-
-	<meta charset="UTF-8">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-	<link rel="stylesheet" type="text/css" href="../../../css/main.css">
-	<link rel="stylesheet" type="text/css" href="../../../css/foundation.css">
-	<link rel="stylesheet" type="text/css" href="../../../css/normalize.css">
-
-	<script type="text/javascript" src="../../../js/vendor/modernizr.js"></script>
-
-	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-
-	<script src="//www.parsecdn.com/js/parse-1.2.19.min.js"></script>
-
-</head>
-
-<body>
 
 
 <div class="row">
@@ -109,6 +77,47 @@ $data = json_decode($json);
 		</div>
 
 		<div class="row">
+			
+			<div class="large-8 large-centered columns">
+				
+				<div class="row">
+					
+
+					<div class="large-12 columns">
+						
+					<textarea id="description" placeholder="Describe the book condition"></textarea>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="row">
+			
+			<div class="large-8 large-centered columns">
+				
+				<div class="row">
+
+					<div class="large-4 columns">
+						<input type="radio" name="condition" value="new" id="newCond"><label for='newCond'>New</label>
+					</div>
+					<div class="large-4 columns">
+						<input type="radio" name="condition" value="fair" id="fairCond"><label for='fairCond'>Fair</label>
+					</div>
+					<div class="large-4 columns">
+						<input type="radio" name="condition" value="used" id="usedCond"><label for='usedCond'>Used</label>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="row">
 
 			<div class="large-8 large-centered columns">
 
@@ -147,9 +156,11 @@ $data = json_decode($json);
 </div>
 
 
-<script src="../../../js/vendor/jquery.js"></script>
-<script type="text/javascript" src="../../../js/vendor/fastclick.js"></script>
-<script type="text/javascript" src="../../../js/foundation.min.js"></script>
+<script src="/js/vendor/jquery.js"></script>
+<script type="text/javascript" src="/js/vendor/fastclick.js"></script>
+<script type="text/javascript" src="/js/foundation.min.js"></script>
+<script type="text/javascript" src="/js/init_parse.js"></script>
+<script type="text/javascript" src="/js/signout.js"></script>
 
 <script type="text/javascript">
 
@@ -197,8 +208,32 @@ function book(s, n, title, edition) {
 
 }
 
+function uploadBook(course, title, edition, price, desc, cond) {
+
+	var Textbook = Parse.Object.extend('Textbook');
+	var book = new Textbook;
+
+	book.set('class', course);
+	book.set('title', title);
+	book.set('edition', edition);
+	book.set('price', price);
+	book.set('description', desc);
+	book.set('condition', cond);
+	book.set('user', Parse.User.current());
+	book.set('selling', true);
+
+	book.save(null, {
+		success: function(book) {
+			console.log('success: ' + book.id);
+		}, 
+		error: function(book, error) {
+			console.log('error: ' + error.message);
+		}
+	})
+
+}
+
 $(document).ready(function() {
-	Parse.initialize("AQ2Vfb0vhbBq3N6t2Aeu4fpLaZ5Xp8HI42P1fOxr", "0c6WqkXpLdtzqIlYePDnxgC0ZNMsVrD9VPshu5Mo");
 
 	$('#school').change(function() {
 
@@ -223,11 +258,10 @@ $(document).ready(function() {
 		var title = $('#title').val();
 		var edition = $('#edition').val();
 		var price = parseInt($('#price').val());
+		var desc = $('#description').val();
+		var cond = $('input[name="condition"]:checked').val();
 
-		var b = book(s, n, title, edition);
-		var user = Parse.User.current();
-
-		itemSell(b, user, price);
+		uploadBook(s + n, title, edition, price, desc, cond);
 	});
 
 });

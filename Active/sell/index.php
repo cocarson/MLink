@@ -1,29 +1,11 @@
 
-<!DOCTYPE html>
-
-<html lang="en-US">
-
-<head>
-
-	<title>MLink</title>
-
-	<meta charset="UTF-8">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-	<link rel="stylesheet" type="text/css" href="../../css/main.css">
-	<link rel="stylesheet" type="text/css" href="../../css/foundation.css">
-	<link rel="stylesheet" type="text/css" href="../../css/normalize.css">
-
-	<script type="text/javascript" src="../../js/vendor/modernizr.js"></script>
-
-	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-
-
-</head>
-
-<body>
-
+<?php
+$root = $_SERVER['DOCUMENT_ROOT'];
+$head = $root . '/inc/head.php';
+$nav = $root . '/inc/nav.php';
+include_once($head);
+include_once($nav);
+?>
 
 <div class="row">
 
@@ -52,9 +34,11 @@
 </div>
 
 
-<script src="../../js/vendor/jquery.js"></script>
-<script type="text/javascript" src="../../js/vendor/fastclick.js"></script>
-<script type="text/javascript" src="../../js/foundation.min.js"></script>
+<script src="/js/vendor/jquery.js"></script>
+<script type="text/javascript" src="/js/vendor/fastclick.js"></script>
+<script type="text/javascript" src="/js/foundation.min.js"></script>
+<script type="text/javascript" src="/js/init_parse.js"></script>
+<script type="text/javascript" src="/js/signout.js"></script>
 
 <script type="text/javascript">
 
@@ -74,19 +58,7 @@ $(document).ready(function() {
 </script>
 
 <script>
-
-  	$(document).foundation({
-		// specify the class used for active sections
-		active_class: 'active',
-		// how many pixels until the magellan bar sticks, 0 = auto
-		threshold: 0,
-		// pixels from the top of destination for it to be considered active
-		destination_threshold: 0,
-		// calculation throttling to increase framerate
-		throttle_delay: 50,
-		// top distance in pixels assigned to the fixed element on scroll
-		fixed_top: 0
-	});
+  	$(document).foundation();
 </script>
 
 </body>

@@ -37,6 +37,7 @@ include_once($nav);
 <script type="text/javascript" src="../../js/vendor/fastclick.js"></script>
 <script type="text/javascript" src="../../js/foundation.min.js"></script>
 <script type="text/javascript" src="/js/init_parse.js"></script>
+<script type="text/javascript" src="/js/signout.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {

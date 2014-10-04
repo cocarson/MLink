@@ -7,8 +7,6 @@ include_once($head);
 include_once($nav);
 ?>
 
-
-
 <div class="row">
 
 	<div id="main-container" class="large-8 large-centered columns light-background large-radius text-centered">
@@ -124,65 +122,28 @@ include_once($nav);
 
 <script type="text/javascript">
 
-function updateUserItems(itemId, user) {
-
-	var buyArray = user.get('Buying');
-	if (buyArray.length == 0) {
-		buyArray = [itemId];
-		user.set('Buying', buyArray);
-		user.save();
-	} else {
-		buyArray.push(itemId);
-		console.log(buyArray);
-		user.set('Buying', buyArray);
-		user.save();
-	}
-
-}
-
-function itemBuy(book, user, maxPrice) {
-
-	var ItemBuy = Parse.Object.extend('ItemBuy');
-	var item = new ItemBuy;
-
-	item.set('textbook', book);
-	item.set('maxPay', parseInt(maxPrice));
-	item.set('user', user);
-	item.set('sportsTicket', null);
-
-	item.save(null, {
-		success: function(item) {
-			updateUserItems(item.id, user);
-			document.location.href = document.URL + 'search/?max=' + item.get('maxPay') + '&course=' + book.get('class');
-		},
-		error: function(item, error) {
-			console.log('buy error: ' + error.message);
-		}
-	});
-
-}
-
-function book(s, n, title, edition) {
-
-	var course = s + n;
-
+function uploadBook(course, title, edition, price) {
 	var Textbook = Parse.Object.extend('Textbook');
 	var book = new Textbook();
+
+	var user = Parse.User.current();
+	var relation = book.relation("userId");
+	relation.add(user);
+
 	book.set('class', course);
-	book.set('name', title);
-	book.set('edition', parseInt(edition));
+	book.set('title', title);
+	book.set('edition', edition);
+	book.set('price', parseInt(price));
+	book.set('selling', false);
 
 	book.save(null, {
 		success: function(book) {
-			console.log('success: ' + book.id);
+			document.location.href = document.URL + 'search/?p=' + price + '&c=' + course;
 		},
-		error: function(book, error) {
+		error: function(book, error)  {
 			console.log('error: ' + error.message);
 		}
 	});
-
-	return book;
-
 }
 
 $(document).ready(function() {
@@ -211,10 +172,8 @@ $(document).ready(function() {
 		var edition = $('#edition').val();
 		var max = parseInt($('#max').val());
 
-		var user = Parse.User.current();
-		var b = book(s, n, title, edition);
-
-		itemBuy(b, user, max);
+		var course = s + n;
+		uploadBook(course, title, edition, max);
 	});
 
 });
